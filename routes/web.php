@@ -25,7 +25,7 @@ Route::prefix('admin')
     ->group(function () {
 
     Route::get('/dashboard', [AdminMainController::class, 'dashboard'])->name('dashboard');
-    Route::get('/homePage', [AdminProjectController::class, 'dashboard'])->name('homePage');
+    Route::resource('projects', AdminProjectController::class);
 });
 
 require __DIR__.'/auth.php';
