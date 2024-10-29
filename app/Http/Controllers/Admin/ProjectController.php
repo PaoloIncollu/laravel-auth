@@ -13,7 +13,9 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+        $projects = Project::get();
+
+        return view('admin.projects.index', compact('projects'));
     }
 
     /**
@@ -21,15 +23,24 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.projects.create');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created resource in storage.comic
      */
     public function store(Request $request)
     {
-        //
+        $data = $this->validateRequest($request);
+
+        $data = $request->all();
+
+        $data['slug'] = str()->slug($data['name']);
+        $data['published'] = isset($data['published']);
+
+        $project = Project::create($data);
+
+        return redirect()->route('admin.projects.show', ['project' => $project->id]);
     }
 
     /**
@@ -37,7 +48,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        //
+        return view('admin.projects.show', compact('project'));
     }
 
     /**
@@ -45,7 +56,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        return view('admin.projects.edit', compact('project'));
     }
 
     /**
@@ -53,7 +64,17 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        //
+
+        $data = $this->validateRequest($request);
+
+        $data = $request->all();
+
+        $data['slug'] = str()->slug($data['name']);
+        $data['published'] = isset($data['published']);
+
+        $project = Project::create($data);
+
+        return redirect()->route('admin.project.show', ['project' => $project->id]);
     }
 
     /**
@@ -61,6 +82,20 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        $project->delete();
+        return redirect()->route('admin.project.index');
+    }
+
+    private function validateRequest($request){
+
+        $request->validate([
+
+            'name' => 'required|min:3|max:64',
+            'description' => 'required|min:10|max:5000',
+            'content' => 'required|min:10|max:5000',
+            'creation_date' => 'nullable|date',
+            'published' => 'nullable|in:1,0,true,false'
+
+        ]);
     }
 }
