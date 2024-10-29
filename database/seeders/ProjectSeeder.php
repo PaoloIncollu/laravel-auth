@@ -14,16 +14,17 @@ class ProjectSeeder extends Seeder
     {
         Project::truncate();
 
-        for ($i = 0; $i > 20; $i ++){
+        for ($i = 0; $i < 20; $i ++){
 
-            $name = fake()->words(3);
+            $name = fake()->sentence(3);
             $slug = str()->slug($name);
 
-            Project::factory()->create([
+            Project::create([
 
             'name'=> $name,
             'slug'=> $slug,
             'description' => fake()->paragraph(),
+            'content'=> fake()->paragraph(),
             'creation_date' => fake()->dateTimeBetween('-5 years', 'now'),
             'published'=> fake()->boolean(70)
 

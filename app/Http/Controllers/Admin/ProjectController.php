@@ -72,9 +72,9 @@ class ProjectController extends Controller
         $data['slug'] = str()->slug($data['name']);
         $data['published'] = isset($data['published']);
 
-        $project = Project::create($data);
+        $project->update($data);
 
-        return redirect()->route('admin.project.show', ['project' => $project->id]);
+        return redirect()->route('admin.projects.show', ['project' => $project->id]);
     }
 
     /**
@@ -83,7 +83,7 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         $project->delete();
-        return redirect()->route('admin.project.index');
+        return redirect()->route('admin.projects.index');
     }
 
     private function validateRequest($request){

@@ -22,18 +22,18 @@
             <th scope="col" class="text-center">Nome</th>
             <th scope="col" class="text-center">Data di creazione</th>
             <th scope="col" class="text-center">Pubblicato</th>
-            <th scope="col" class="text-center ms-2"></th>
+            <th scope="col" class="text-center">Azioni</th>
 
         </tr>
     </thead>
     <tbody>
         @foreach ($projects as $project)
             <tr>
-                <th scope="row">{{ $project->id }}</th>
-                <td>{{ $project->name }}</td>
-                <td>{{ $project->creation_date }}</td>
-                <td>{{ $project->published ? 'SI' : 'NO' }} </td>
-                <td>
+                <th class="text-center" scope="row">{{ $project->id }}</th>
+                <td class="text-center">{{ $project->name }}</td>
+                <td class="text-center">{{ $project->creation_date }}</td>
+                <td class="text-center">{{ $project->published ? 'SI' : 'NO' }} </td>
+                <td class="d-flex justify-content-around text-center">
 
                     <a href="{{ route('admin.projects.show', ['project' => $project->id]) }}" class="btn btn-primary">
 

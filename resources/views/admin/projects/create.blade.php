@@ -29,8 +29,26 @@
     </div>
 
     <div class="mb-3">
+        <label for="creation_date" class="form-label">Data creazione <span class="text-danger">*</span></label>
+        <input type="date" class="form-control @error('creation_date') is-invalid @enderror" id="creation_date" name="creation_date" required  placeholder="Inserisci data creazione..." value="{{ old('sale_date') }}">
+
+        @if($errors->has('creation_date'))
+            <div class="alert alert-danger mt-1">
+
+                <ul class="mb-0">
+                    @foreach($errors->get('creation_date') as $key => $error)
+                        <li>
+                            {{ $error }}
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+    </div>
+
+    <div class="mb-3">
         <label for="content" class="form-label">Contenuto</label>
-        <input type="text" class="form-control @error('content') is-invalid @enderror" id="content" name="content" maxlength="4096" placeholder="Inserisci il contenuto..." value="{{ old('content') }}">
+        <textarea class="form-control  @error('content') is-invalid @enderror" id="content" name="content" rows="3" required maxlength="4096" placeholder="Inserisci il contenuto..." >{{ old('content') }}</textarea>
 
         @if($errors->has('content'))
             <div class="alert alert-danger mt-1">
@@ -49,24 +67,24 @@
 
 
 
-
     <div class="mb-3">
-        <label for="creation_date" class="form-label">Data <span class="text-danger">*</span></label>
-        <input type="date" class="form-control @error('creation_date') is-invalid @enderror" id="creation_date" name="creation_date" required  placeholder="Inserisci data creazione..." value="{{ old('sale_date') }}">
+        <label for="description" class="form-label">Descrizione <span class="text-danger">*</span></label>
+        <textarea class="form-control  @error('description') is-invalid @enderror" id="description" name="description" rows="3" required maxlength="4096" placeholder="Inserisci una descrizione..." >{{ old('description') }}</textarea>
 
-        @if($errors->has('creation_date'))
-            <div class="alert alert-danger mt-1">
+        @if($errors->has('description'))
+        <div class="alert alert-danger mt-1">
 
-                <ul class="mb-0">
-                    @foreach($errors->get('creation_date') as $key => $error)
-                        <li>
-                            {{ $error }}
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+            <ul class="mb-0">
+                @foreach($errors->get('description') as $key => $error)
+                    <li>
+                        {{ $error }}
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     </div>
+
     <div class="mb-3">
 
         <div class="form-check">
@@ -84,24 +102,6 @@
 
 
         </div>
-    </div>
-
-    <div class="mb-3">
-        <label for="description" class="form-label">Descrizione <span class="text-danger">*</span></label>
-        <textarea class="form-control  @error('description') is-invalid @enderror" id="description" name="description" rows="3" required maxlength="4096" placeholder="Inserisci una descrizione..." >{{ old('description') }}</textarea>
-
-        @if($errors->has('description'))
-        <div class="alert alert-danger mt-1">
-
-            <ul class="mb-0">
-                @foreach($errors->get('description') as $key => $error)
-                    <li>
-                        {{ $error }}
-                    </li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
     </div>
 
     <div>
